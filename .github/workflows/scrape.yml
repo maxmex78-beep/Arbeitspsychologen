@@ -1,0 +1,28 @@
+name: Psychologen Scraper
+
+on:
+  workflow_dispatch: # Ermöglicht manuellen Start per Button
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run Scraper
+        run: python scraper.py
+
+      - name: Upload Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: arbeitspsychologen-liste
+          path: arbeitspsychologen_at.csv
